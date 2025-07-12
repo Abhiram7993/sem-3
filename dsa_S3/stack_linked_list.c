@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -78,7 +79,7 @@ void push(void){
     // temp->name is an array of 30 character. 
     // So when we call it, the return value will be the address of 1st byte.
     // temp->name will be considered as array not pointer variable  
-    if (fgets(temp->name, sizeof(temp->name), stdin)){
+    if (fgets(temp->name, 30*sizeof(char), stdin)){
         // replacing \n with \0 using strcspn, note that arg of strcspn are strings.
         // Since fgets read \n too, we dont need to flush here.
         temp->name[strcspn(temp->name, "\n")] = '\0';
