@@ -5,7 +5,12 @@
 
 void push(int* stack, int* PointerTop);
 void pop(int* stack, int* PointerTop);
-void display(int* stack, int* PointerTop);
+void peek();
+void flush();
+
+// auxilary stack
+int Minstack[MAX];
+int min = -1;
 
 
 /*While incrementing values inside a pointer always use bracket
@@ -19,8 +24,9 @@ int main(void){
     while (1){
 
         int option;
-        printf("Menu\n1.Push\n2.Pop\n3.Display\n4.Exit\nChoice: ");
+        printf("Menu\n1.Push\n2.Pop\n3.Minimum Element\n4.Exit\nChoice: ");
         scanf("%d", &option);
+        flush();
 
         switch (option){
             case 1:
@@ -30,7 +36,7 @@ int main(void){
                 pop(stack, &top);
                 break;
             case 3:
-                display(stack, &top);
+                peek();
                 break;
             case 4:
                 exit(0);
@@ -51,12 +57,25 @@ void push(int* stack, int* PointerTop){
         int data;
         printf("Data: ");
         scanf("%d", &data);
+        flush();
         printf("\n");
 
         // Using bracket while incrementing.
         (*PointerTop)++; 
         stack[*PointerTop] = data;
-    }
+        
+        // Adding minimal element.
+    	  if (min == -1){
+            Minstack[0] = data;
+            min++;
+        }
+        else{
+    	      if (data < Minstack[min]){
+    	          min++;
+    	          Minstack[min] = data;
+    	      }
+        }
+   }
 }
 
 
@@ -73,11 +92,21 @@ void pop(int* stack, int* PointerTop){
 }
 
 
-void display(int* stack, int* PointerTop){
-
-    for (int i=0; i<= *PointerTop; i++){
-        printf("%i\n", stack[(*PointerTop) - i]);
-    }
+void peek(){
+	 if (min == -1){
+	     printf("First add some number\n\n");
+	     return;
+	 }
+    printf("%i\n", Minstack[min]);
     printf("\n");
 
 }
+
+void flush(){
+	int c;
+	c = getchar();
+	while ((c != '\n')&&(c != EOF)){
+		c = getchar();
+	}
+}
+
