@@ -3,23 +3,35 @@
 
 void bubble_sort(int* array, int n);
 void print_array(int* array, int n);
+void flush(void);
+
 
 int main(){
 
-	int array[] = {89, 34, 26, 90, 68, 55, 10, 100, 74};
-	int n = 9;
+	int array[100];
+	int len;
 	clock_t start, end;
 	double cpu_time_used;
+
+	printf("Enter number of elements: ");
+	scanf("%i", &len);
+	flush();
+
+	for (int i=0; i<len; i++){
+		printf("Enter number: ");
+		scanf("%i", &array[i]);
+		flush();
+	}
 	
 	// starting time calculation.
 	start = clock();
 	
-	bubble_sort(array, n);
+	bubble_sort(array, len);
 	
 	// ending time calculation.
 	end = clock();
 	
-	print_array(array, n);
+	print_array(array, len);
 	printf("\n");
 	
 	// Calculating the time taken for bubble sort
@@ -58,3 +70,10 @@ void print_array(int* array, int n){
 	}
 }
 
+
+void flush(void){
+	int c = getchar();
+	while (c!='\n' && c!=EOF){
+		c = getchar();
+	}
+}
